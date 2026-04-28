@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // 1. GANTI PAKE TOKEN ASLI DARI @BotFather
-const token = '8637311609:AAGtKe6axPgIXmHspdWVlFhJyZaf7ZlS3nw';
+const token = '8637311609':AAGtKe6axPgIXmHspdWVlFhJyZaf7ZlS3nw';
 
 // 2. GANTI PAKE USERNAME TELEGRAM LU TANPA @
 const usernameOwner = 'http://t.me/OfficialSamdun_bot';
