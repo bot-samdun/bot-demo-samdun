@@ -1,13 +1,12 @@
 const TelegramBot = require('node-telegram-bot-api');
 
-// >>> GANTI 3 INI DOANG <<<
-const token = '8637311609:AAHvG2TQ0-3-FmsN14iwGc1o10bLa1RCS5c'; 
-const chatIdAdmin = '8594967007'; // ID dari @userinfobot tadi
+// >>> GANTI 3 INI DOANG YA BRO <<<
+const token = '8637311609:AAFgFFF8-Gki2DZncg7NbXGqPtVsYYT5zQk'; 
+const chatIdAdmin = '8594967007'; // ID dari @userinfobot
 const nomorAdminWA = '6281353462858'; // Nomor WA lu pake 62
+// >>> UDAH, SISANYA JANGAN DIUBAH <<<
 
-// >>> SISANYA GA USAH DIUBAH <<<
 const bot = new TelegramBot(token, {polling: true});
-
 console.log('Bot LV1.5 Active bro!');
 
 // Command /start
@@ -29,13 +28,27 @@ bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
   
-  // Skip kalo command atau kosong
   if (!text || text.startsWith('/')) return;
   
-  // Cek format order: harus ada " | "
   if (text.includes('|')) {
     const username = msg.from.username ? `@${msg.from.username}` : msg.from.first_name;
     const userId = msg.from.id;
     
-    // 1. Teks buat admin
-    const teksOrderAdmin = `🔥 ORDER BARU MASUK 🔥\n\nDari: ${username}\nID: ${
+    const teksOrderAdmin = `🔥 ORDER BARU MASUK 🔥\n\nDari: ${username}\nID: ${userId}\nPesanan: ${text}\n\nLangsung sikat bro!`;
+    
+    const pesanWa = encodeURIComponent(`Halo kak ${username}, orderan:\n"${text}"\n\nUdah gue terima ya. Lanjut proses?`);
+    const linkWa = `https://wa.me/${nomorAdminWA}?text=${pesanWa}`;
+    
+    bot.sendMessage(chatIdAdmin, teksOrderAdmin, {
+      reply_markup: {
+        inline_keyboard: [[
+          { text: "📲 Balas via WhatsApp", url: linkWa }
+        ]]
+      }
+    });
+    
+    bot.sendMessage(chatId, "✅ Order lu udah dikirim ke admin!\nTunggu dibales via WA ya. Sabar bro 🙏");
+  }
+});
+
+console.log('Bot siap nerima orderan!');
